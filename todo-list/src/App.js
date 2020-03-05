@@ -8,10 +8,12 @@ function App() {
   const [todos, setTodos] = useState([])
   const todoNameRef = useRef();
 
-  useEffect(() =>{
-    const storedTodos = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY))
+  useEffect(() => {
+    const storedTodos = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) //JSON converting to array
     if (storedTodos) setTodos(storedTodos)
   }, [])
+  //loads todos when components loads. 
+  //sets our todos to what is changed
 
   useEffect(() => {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todos))
@@ -19,24 +21,32 @@ function App() {
   //using useeffect function
 
 
-  function handleAddTodo(e){
+  function toggleTodo(id) {
+    const newTodos = [...todos]
+    const todo = newTodos.find(todo => todo.id === id)
+    todo.complete = !todo.complete
+    setTodos(newTodos)
+  }
+
+
+  function handleAddTodo(e) {
     const name = todoNameRef.current.value
-    if(name === '') return
-    setTodos(prevTodos =>{
-      return [...prevTodos, {id: uuidv4(), name:name, complete: false}]
+    if (name === '') return
+    setTodos(prevTodos => {
+      return [...prevTodos, { id: uuidv4(), name: name, complete: false }]
     })
     console.log(name)
     todoNameRef.current.value = null; //after we type something and hit button the field will clear
-    
+
   }
 
   return (
     <>
-      <TodoList todos={todos}/>
+      <TodoList todos={todos} toggleTodo={toggleTodo} />
       <input ref={todoNameRef} type="text" />
-      <button onClick = {handleAddTodo}>Add Todo </button>
+      <button onClick={handleAddTodo}>Add Todo </button>
       <button>Clear completed</button>
-      <div>0 left to do </div>
+      <div>{todos.filter(todo => !todo.complete).length} left to do </div>
     </>
   )
 }
