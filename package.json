@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Keegawho198/ReactTodoList/issues"
   },
-  "homepage": "https://github.com/Keegawho198/ReactTodoList#readme"
+  "homepage": "https://github.com/Keegawho198/ReactTodoList#readme",
+  "dependencies": {
+    "uuid": "^7.0.2"
+  }
 }
