@@ -1,14 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import TodoList from './TodoList'
 
 function App() {
-  return(
+  const [todos, setTodos] = useState(['todo1', 'todo2'])
+  return (
     <>
-    <TodoList/>
-    <input type = "text"/>
-    <button>Add Todo </button>
-    <button>Clear completed</button>
-    <div>0 left to do </div>
+      <TodoList todos={todos}/>
+      <input type="text" />
+      <button>Add Todo </button>
+      <button>Clear completed</button>
+      <div>0 left to do </div>
     </>
   )
 }
